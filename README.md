@@ -21,3 +21,11 @@ As a user, I can choose not to permit the site to access my microphone and webca
 As a user, when I choose to cancel the room name input step, or if I type in no name, or just spaces, it should ask me again to type in a valid room name.
 
 As a user, I expect that if one of the two people in the room get disconnected, they can reconnect to the same room and continue chatting.
+
+## Credits
+
+Taken from [Krishna Sai Cholkar](https://github.com/Krishnasai3cks/Video-Calling-App).  Accessed on 6 September 2021.
+
+### Acknowledgements
+
+- Krishna Sai Cholkar (via the FreeCodeCamp Forum)
