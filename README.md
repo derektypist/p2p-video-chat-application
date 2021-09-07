@@ -24,8 +24,11 @@ As a user, I expect that if one of the two people in the room get disconnected, 
 
 ## Credits
 
-Taken from [Krishna Sai Cholkar](https://github.com/Krishnasai3cks/Video-Calling-App).  Accessed on 6 September 2021.
+Taken from [Krishna Sai Cholkar](https://github.com/Krishnasai3cks/Video-Calling-App) and [Indra Subagja]((https://forum.freecodecamp.org/t/freecodecamp-project-p2p-video-chat-application/476740).
+
+Accessed between 6 and 7 September 2021.
 
 ### Acknowledgements
 
 - Krishna Sai Cholkar (via the FreeCodeCamp Forum)
+- Indra Subagja (via the FreeCodeCamp Forum)
