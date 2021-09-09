@@ -22,8 +22,39 @@ let localStream;
 let remoteStream;
 
 // Initialize
-const init = async => {
+const init = async () => {
   let pc = new RTCPeerConnection(servers);
+  let ch = pc.createDataChannel('');
+
+  try {
+    localStream = await navigator.mediaDevices.getUserMedia({video:true, audio: false});
+    remoteStream = new MediaStream();
+
+    while (!room) {
+      room = prompt('Enter a room name:');
+
+      if (room === null) {
+        localStream.getTracks().forEach((track) => track.stop());
+        return alert('The room name is required');
+      }
+    }
+
+    // Push Tracks from Local Stream to Peer Connection
+    localStream.getTracks().forEach((track) => pc.addTrack(track, localStream));
+
+    // Pull Tracks from Remote Stream, add to video stream
+    pc.ontrack = (event) => {
+      event.streams[0].getTracks().forEach((track) => remoteStream.addTrack(track));
+    };
+
+    localVideo.srcObject = localStream;
+    remoteVideo.srcObject = remoteStream;
+
+  } catch (error) {
+    console.log(error);
+    alert('Camera and Microphone are required');
+  }
+
   
 };
 
