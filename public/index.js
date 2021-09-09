@@ -21,4 +21,11 @@ let room;
 let localStream;
 let remoteStream;
 
+// Initialize
+const init = async => {
+  let pc = new RTCPeerConnection(servers);
+  
+};
+
+init();
 
