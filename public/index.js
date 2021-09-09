@@ -1,7 +1,7 @@
 // Import Modules
 
 import {initializeApp} from 'firebase/app';
-import {getFirestore, collection, doc, setDoc, getDoc, getDocs, addDoc, updateDoc, deleteDocs, onSnapshot} from 'firebase/firestore';
+import {getFirestore, collection, doc, setDoc, getDoc, getDocs, addDoc, updateDoc, deleteDoc, onSnapshot} from 'firebase/firestore';
 
 // Set Up Variables
 const app = initializeApp({projectId: "p2p-video-chat-application"});
@@ -55,7 +55,18 @@ const init = async () => {
     alert('Camera and Microphone are required');
   }
 
-  
+  try {
+    const roomRef = doc(db, 'rooms', room);
+    const roomDoc = await getDoc(roomRef);
+    const offerCandidates = collection(db, 'rooms', room, 'offerCandidates');
+    const answerCandidates = collection(db, 'rooms', room, 'answerCandidates');
+
+    ch.onclose = async () => {
+      await deleteDoc 
+    };
+  }
+
+
 };
 
 init();
