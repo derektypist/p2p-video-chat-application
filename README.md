@@ -40,3 +40,4 @@ Accessed between 6 and 7 September 2021.
 
 - Krishna Sai Cholkar (via the FreeCodeCamp Forum)
 - Indra Subagja (via the FreeCodeCamp Forum)
+- [Firebase](https://fireship.io/lessons/webrtc-firebase-video-chat/)
