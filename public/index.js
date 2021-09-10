@@ -77,6 +77,51 @@ const init = async () => {
       pc.close();
       pc = null;
     });
+
+    if (roomDoc.exists() && roomDoc.data()?.answer) {
+      alert('Room is full');
+    } else if (roomDoc.exists()) {
+      pc.onicecandidate = (event) => {
+        event.candidate && addDoc(answerCandidates, event.candidate.toJSON());
+      };
+
+      pc.oniceconnectionstatechange = (event) => {
+        if (pc.iceConnectionState === 'failed') {
+          pc.restartIce();
+        }
+      };
+
+      const offerDescription = roomDoc.data().offer;
+      await pc.setRemoteDescription(new RTCSessionDescription(offerDescription));
+
+      const answerDescription = await pc.createAnswer();
+      await pc.setLocalDescription(answerDescription);
+
+      const answer = {
+        type: answerDescription.type,
+        sdp: answerDescription.sdp
+      };
+
+      await updateDoc(roomRef, {answer});
+
+      onSnapshot(offerCandidates, (doc) => {
+        doc.docChanges().forEach((change) => {
+          if (change.type === 'added') {
+            pc.addIceCandidate(new RTCIceCandidate(change.doc.data()));
+          }
+        });
+      });
+    } else {
+      pc.onicecandidate = (event) => {
+        event.candidate && addDoc(offerCandidates, event.candidate.toJSON());
+      };
+
+      pc.oniceconnectionstatechange = () => {
+        if (pc.iceConnectionState === 'failed') {
+          pc.restartIce();
+        }
+      };
+    }
   }
 
 
