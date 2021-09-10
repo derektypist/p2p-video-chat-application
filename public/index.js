@@ -62,7 +62,9 @@ const init = async () => {
     const answerCandidates = collection(db, 'rooms', room, 'answerCandidates');
 
     ch.onclose = async () => {
-      await deleteDoc 
+      await deleteDoc(roomRef);
+      await getDocs(offerCandidates).then((docs) => docs.forEach(async (entry) => await deleteDoc(doc(db, 'rooms', room, 'offerCandidates', entry.id))));
+      await getDocs(answerCandidates).then((docs) => ) 
     };
   }
 
