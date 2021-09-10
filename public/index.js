@@ -85,7 +85,7 @@ const init = async () => {
         event.candidate && addDoc(answerCandidates, event.candidate.toJSON());
       };
 
-      pc.oniceconnectionstatechange = (event) => {
+      pc.oniceconnectionstatechange = () => {
         if (pc.iceConnectionState === 'failed') {
           pc.restartIce();
         }
@@ -121,9 +121,37 @@ const init = async () => {
           pc.restartIce();
         }
       };
+
+      const offerDescription = await pc.createOffer();
+      await pc.setLocalDescription(offerDescription);
+
+      onSnapshot(roomRef, (doc) => {
+        const data = doc.data();
+        if (data?.answer) {
+          pc.setRemoteDescription(new RTCSessionDescription(data.answer));
+        }
+      });
+
+      const offer = {
+        type: offerDescription.type,
+        sdp: offerDescription.sdp
+      };
+
+      setDoc(roomRef, {offer});
+
+      onSnapshot(answerCandidates, (doc) => {
+        doc.docChanges().forEach((change) => {
+          if (change.type === 'added') {
+            pc.addIceCandidate(new RTCIceCandidate(change.doc.data()));
+          }
+        });
+      });
     }
   }
 
+  catch (error) {
+    console.log(error);
+  }
 
 };
 
