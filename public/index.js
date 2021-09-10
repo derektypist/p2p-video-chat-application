@@ -64,8 +64,19 @@ const init = async () => {
     ch.onclose = async () => {
       await deleteDoc(roomRef);
       await getDocs(offerCandidates).then((docs) => docs.forEach(async (entry) => await deleteDoc(doc(db, 'rooms', room, 'offerCandidates', entry.id))));
-      await getDocs(answerCandidates).then((docs) => ) 
+      await getDocs(answerCandidates).then((docs) => docs.forEach(async (entry) => await deleteDoc(doc(db, 'rooms', room, 'answerCandidates', entry.id)))); 
+      roomRef.onSnapshot = null;
+      offerCandiates.onSnapshot = null;
+      answerCandidates.onSnapshot = null;
+      pc.close();
+      pc = null;
+      init();
     };
+
+    window.addEventListener('beforeunload', () => {
+      pc.close();
+      pc = null;
+    });
   }
 
 
