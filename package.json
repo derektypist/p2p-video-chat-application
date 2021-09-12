@@ -4,6 +4,7 @@
   "description": "The aim of the project is to provide a video chat application.",
   "main": "server.js",
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
