@@ -24,7 +24,7 @@ As a user, I expect that if one of the two people in the room get disconnected, 
 
 ## Technologies
 
-Uses HTML5, CSS3, JavaScript and Express
+Uses HTML5, CSS3, JavaScript, Firebase and Express
 
 ## Deployment
 
